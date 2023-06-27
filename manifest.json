@@ -1,0 +1,12 @@
+{
+  "manifest_version": 2,
+  "name": "Hello World Extension",
+  "version": "1.0",
+  "description": "Displays a 'Hello World' message",
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab"
+  ]
+}

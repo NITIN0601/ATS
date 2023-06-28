@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Hello World Extension",
+  "name": "ATS Resume Accepter",
   "version": "1.0",
-  "description": "Displays a 'Hello World' message",
+  "description": "Collects the JD with respective to Resume",
   "browser_action": {
     "default_popup": "popup.html"
   },

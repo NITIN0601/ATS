@@ -7,20 +7,52 @@ import os
 import io
 from PIL import Image
 import pdf2image
+import docx2txt
 import google.generativeai as genai
 import prompt_techinque as pt
 
 
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+genai.configure(api_key="GOOGLE_API_KEY")
+
+generation_config = {
+    "temperature": 0,
+    "top_p": 1,
+    "top_k": 32,
+    "max_output_tokens": 4096,
+}
+
+safety_settings = [
+    {"category": f"HARM_CATEGORY_{category}", "threshold": "BLOCK_MEDIUM_AND_ABOVE"} 
+    for category in ["HARASSMENT", "HATE_SPEECH", "SEXUALLY_EXPLICIT", "DANGEROUS_CONTENT"]
+]
 
 def get_model_response(input, pdf_content, prompt):
     """
     Input: PDF
     Output: Text response
     """
-    model = genai.GenerativeModel('gemini-pro-vision')
+    model = genai.GenerativeModel(
+        model_name="gemini-pro-vision", 
+        generation_config=generation_config, 
+        safety_settings=safety_settings,
+        )
     response = model.generate_content([input, pdf_content[0],prompt])
     return response.text
+
+
+def extract_text_from_pdf_file(uploaded_file):
+    # Use PdfReader to read the text content from a PDF file
+    pdf_reader = pdf.PdfReader(uploaded_file)
+    text_content = ""
+    for page in pdf_reader:
+        text_content += str(page.extract_text())
+    return text_content
+
+
+def extract_text_from_docx_file(uploaded_file):
+    # Use docx2txt to extract text from a DOCX file
+    return docx2txt.process(uploaded_file)
+
 
 def input_pdf_setup(upload_file):
     """
@@ -73,7 +105,7 @@ submit_1 = st.button("Tell Me About the Resume")
 submit_2 = st.button("Percentage Match")
 
 if submit_1:
-    logic_code(pt.prompt1(input_job_text))
+    logic_code(pt.prompt1(input_job_text,input_text))
 elif submit_2:
-    logic_code(pt.prompt2(input_job_text))
+    logic_code(pt.prompt2(input_job_text,input_text))
     

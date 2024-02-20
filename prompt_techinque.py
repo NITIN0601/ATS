@@ -1,7 +1,7 @@
-def prompt1(input_job_role):
+def prompt1(input_job_role,job_description):
     input_prompt_1 = """
-                    Outline resume screening for resume with the Job Description :
-                    List out all the issues in resume with respective to Job Description.
+                    As an experienced Applicant Tracking System (ATS) resume screening for resume with the Job Description :
+                    List out all the issues in resume with respective to Job Description. Provide constructive feedback for improvement.  
 
                     1. Identify technical requirements
                     2. Check experience fit
@@ -16,10 +16,10 @@ def prompt1(input_job_role):
     return input_prompt_1
 
 
-def prompt2(input_job_role):
+def prompt2(input_job_role,job_description):
     input_prompt_1 = """
-                    You are an ATS resume scanner with expertise in technical requirement analysis. 
-                    Compare the resume to the job description judging match based on:
+                    As an experienced Applicant Tracking System (ATS) for {input_job_role} resume scanner with expertise in technical requirement analysis. 
+                    Compare the resume to the {job_description} judging match based on:
 
                     1. Technical Skills (70% weight)
                     - Identify missing technical keywords. 
@@ -36,7 +36,7 @@ def prompt2(input_job_role):
                     - If education level matches/surpasses, do not increase score.
 
                     First, state the percent match score after judging missing criteria weighted above.
-                    Next, list all unmet technical skills and experience gaps. 
+                    Next, list all unmet technical skills and experience gaps. Determine the match percentage and any missing keywords. 
                     Finally, provide closing recommendations on areas of mismatch for improving resume relevance.  
 
                     Ignore any textual tables, charts or visual formatting when scanning. Call those out separately after final thoughts.
